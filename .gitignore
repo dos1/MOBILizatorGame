@@ -1,0 +1,3 @@
+server/hackaton/database.db
+*.pyc
+*~
