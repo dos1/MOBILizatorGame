@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+<title>KONSOLA</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<link href="jquery-ui-1.8.18.custom.css" rel="stylesheet" type="text/css" />
+<script>
+  google.load("jquery", "1.7");
+  google.load("jqueryui", "1.8");
+  google.setOnLoadCallback(function() {
+         var $dialog = $("<div></div>").dialog({
+                dialogClass: 'restdebug',
+                title:'rest debug',
+                resizable: true,
+                width: 500,
+                height: 333,
+                modal: true,
+                buttons: [],
+                close: function(ev, ui) {window.location='#';$(this).remove();}
+            }).html('<table><tr><td>Path:</td><td><input type="text" id="debugpath" value="/api/players/" /></td></tr> \
+                     <tr><td>Method:</td><td><input type="text" id="debugmethod" value="get" /></td>\
+                     <tr><td>Input JSON:</td> <td><textarea id="debuginput" style="height: 200px">{"player":"dos"}</textarea></td></tr>\
+                     <tr><td><input type="button" id="debugbutton" value="SEND" /></td></tr></table>').find('table, input, textarea').css('width','100%').parent().find('#debugbutton').on('click', function() { 
+                var $dial = $(this).parent().parent().parent();
+                var url = $dial.find('#debugpath').val();
+                var method = $dial.find('#debugmethod').val();
+                var input = $dial.find('#debuginput').val();
+                if (input) input = JSON.parse(input); else input = {};
+                $.get(url, input,
+                  function(d){
+                    console.log(d);
+                      alert(JSON.stringify(d), null, " ");
+                  }
+                );
+
+            });
+  });
+</script>
+</head>
+<body>
+
+</body>
+</html>
